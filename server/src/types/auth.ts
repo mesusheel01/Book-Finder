@@ -27,9 +27,31 @@ export const loginSchema = z.object({
     .min(1, 'Password is required'),
 });
 
+// Add book to favorites schema
+export const addFavoriteSchema = z.object({
+  bookId: z
+    .string()
+    .min(1, 'Book ID is required'),
+  title: z
+    .string()
+    .min(1, 'Book title is required'),
+  author: z
+    .string()
+    .min(1, 'Book author is required'),
+  year: z
+    .number()
+    .min(1800, 'Year must be at least 1800')
+    .max(new Date().getFullYear(), 'Year cannot be in the future'),
+  cover: z
+    .string()
+    .nullable()
+    .optional(),
+});
+
 // Type exports
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
+export type AddFavoriteInput = z.infer<typeof addFavoriteSchema>;
 
 // User response type
 export const userResponseSchema = z.object({
@@ -49,6 +71,21 @@ export const authResponseSchema = z.object({
 });
 
 export type AuthResponse = z.infer<typeof authResponseSchema>;
+
+// Book response type
+export const bookResponseSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  bookId: z.string(),
+  title: z.string(),
+  author: z.string(),
+  year: z.number(),
+  cover: z.string().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export type BookResponse = z.infer<typeof bookResponseSchema>;
 
 // Error response type
 export const errorResponseSchema = z.object({

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { connectDB } from './db';
-import { authRoutes } from './routes';
+import { authRoutes, bookRoutes } from './routes';
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/books', bookRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {

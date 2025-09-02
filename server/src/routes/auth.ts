@@ -91,7 +91,7 @@ router.post('/signup', validateBody(registerSchema), async (req, res) => {
 });
 
 // Login user
-router.post('/login', validateBody(loginSchema), async (req, res) => {
+router.post('/signin', validateBody(loginSchema), async (req, res) => {
   try {
     const { username, password }: LoginInput = req.body;
     
