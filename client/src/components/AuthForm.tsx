@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { 
   registerSchema, 
-  loginSchema, 
+  loginSchema
+} from '../types/auth';
+import type { 
   RegisterInput, 
-  LoginInput,
-  AuthResponse 
+  LoginInput
 } from '../types/auth';
 
 interface AuthFormProps {
@@ -36,10 +37,10 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit }) => {
       }
       setErrors({});
       return true;
-    } catch (error: any) {
-      if (error.errors) {
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'errors' in error) {
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err: any) => {
+        (error as { errors: Array<{ path: string[]; message: string }> }).errors.forEach((err) => {
           newErrors[err.path[0]] = err.message;
         });
         setErrors(newErrors);

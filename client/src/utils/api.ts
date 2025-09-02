@@ -29,7 +29,7 @@ const handleResponse = async <T>(response: Response, schema?: unknown): Promise<
 export const authApi = {
   // Register new user
   async register(userData: RegisterInput): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const authApi = {
 
   // Login user
   async login(credentials: LoginInput): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/auth/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
