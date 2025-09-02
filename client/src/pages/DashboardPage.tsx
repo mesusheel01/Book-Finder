@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
 interface Book {
   id: string;
   title: string;
@@ -12,13 +18,13 @@ interface Book {
 }
 
 interface SearchResult {
-  items: Book[];
+  items:Book[];
   totalItems: number;
 }
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +77,7 @@ const DashboardPage: React.FC = () => {
       
       if (response.ok) {
         const data: SearchResult = await response.json();
-        const books: Book[] = data.items?.map((item: any) => ({
+        const books: Book[] = data.items?.map((item: GoogleBooksItem) => ({
           id: item.id,
           title: item.volumeInfo.title,
           author: item.volumeInfo.authors?.join(', ') || 'Unknown Author',

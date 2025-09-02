@@ -30,23 +30,54 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-const PORT = process.env.PORT || 3001;
-
-// Start server
-const startServer = async () => {
-  try {
-    // Connect to database
+// Ensure a single database connection in a serverless environment
+let hasConnectedToDb = false;
+const ensureDbConnection = async (): Promise<void> => {
+  if (!hasConnectedToDb) {
     await connectDB();
-    
-    // Start listening
-    app.listen(PORT, () => {
-      console.log(`🚀 Server is running on port ${PORT}`);
-      console.log(`📡 API available at http://localhost:${PORT}/api`);
-    });
-  } catch (error) {
-    console.error('❌ Failed to start server:', error);
-    process.exit(1);
+    hasConnectedToDb = true;
   }
 };
 
-startServer();
+// Vercel handler: no app.listen; delegate to Express
+export default async function handler(req: any, res: any) {
+  await ensureDbConnection();
+  return app(req, res);
+}
+
+// Local development: run a server only when not on Vercel
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3001;
+  (async () => {
+    try {
+      await ensureDbConnection();
+      app.listen(PORT, () => {
+        console.log(`🚀 Server is running on port ${PORT}`);
+        console.log(`📡 API available at http://localhost:${PORT}/api`);
+      });
+    } catch (error) {
+      console.error('❌ Failed to start server:', error);
+      process.exit(1);
+    }
+  })();
+}
+// const PORT = process.env.PORT || 3001;
+
+// // Start server
+// const startServer = async () => {
+//   try {
+//     // Connect to database
+//     await connectDB();
+    
+//     // Start listening
+//     app.listen(PORT, () => {
+//       console.log(`🚀 Server is running on port ${PORT}`);
+//       console.log(`📡 API available at http://localhost:${PORT}/api`);
+//     });
+//   } catch (error) {
+//     console.error('❌ Failed to start server:', error);
+//     process.exit(1);
+//   }
+// };
+
+// startServer();
