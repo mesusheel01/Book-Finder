@@ -16,7 +16,6 @@ interface Book {
   publishedDate?: string;
   isbn?: string;
 }
-
 interface SearchResult {
   items:Book[];
   totalItems: number;
@@ -72,19 +71,19 @@ const DashboardPage: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=20`
+        `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/books/search?q=${encodeURIComponent(query)}`
       );
       
       if (response.ok) {
         const data: SearchResult = await response.json();
-        const books: Book[] = data.items?.map((item: GoogleBooksItem) => ({
+        const books: Book[] = data.items?.map((item: Book) => ({
           id: item.id,
-          title: item.volumeInfo.title,
-          author: item.volumeInfo.authors?.join(', ') || 'Unknown Author',
-          description: item.volumeInfo.description,
-          imageUrl: item.volumeInfo.imageLinks?.thumbnail,
-          publishedDate: item.volumeInfo.publishedDate,
-          isbn: item.volumeInfo.industryIdentifiers?.[0]?.identifier,
+          title: item.title,
+          author: item.author,
+          description: item.description,
+          imageUrl: item.imageUrl,
+          publishedDate: item.publishedDate,
+          isbn: item.isbn,
         })) || [];
         
         setSearchResults(books);

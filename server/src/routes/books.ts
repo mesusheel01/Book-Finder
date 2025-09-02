@@ -88,7 +88,7 @@ bookRouter.get('/show', async (req, res) => {
 });
 
 // Search books route - improved version
-bookRouter.get('/search', async (req, res) => {
+bookRouter.get('/search', authenticateUser, async (req, res) => {
   const { q } = req.query;
   
   if (!q || typeof q !== 'string') {
