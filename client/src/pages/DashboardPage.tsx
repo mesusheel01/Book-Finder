@@ -70,8 +70,15 @@ const DashboardPage: React.FC = () => {
 
     setIsLoading(true);
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/books/search?q=${encodeURIComponent(query)}`
+        `${import.meta.env.VITE_API_URL || 'http://localhost:3001/api'}/books/search?q=${encodeURIComponent(query),
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          }
+        }`
       );
       
       if (response.ok) {
