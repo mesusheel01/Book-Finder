@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import DarkModeToggle from '../components/DarkModeToggle';
+import BookMarquee from '../components/BookMarquee';
 
 const LandingPage: React.FC = () => {
   return (
@@ -37,7 +38,20 @@ const LandingPage: React.FC = () => {
       </motion.nav>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <motion.div
+      initial={{
+        y:20,
+        opacity:0
+      }}
+      animate={{
+        y:0,
+        opacity:1
+      }}
+      transition={{
+        duration:.5
+      }}
+
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
             Discover Your Next
@@ -66,11 +80,25 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
+      {/* Book Marquee Section */}
+      <BookMarquee />
       {/* Features Section */}
       <div className="py-12 bg-white dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+        initial={{
+          x: -50,
+          opacity:0
+        }}
+        animate={{
+          x:0,
+          opacity:1
+        }}
+        transition={{
+          duration:.4
+        }}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
             <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
@@ -117,8 +145,9 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
+
     </div>
   );
 };

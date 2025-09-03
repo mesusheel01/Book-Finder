@@ -49,3 +49,12 @@ export const authResponseSchema = z.object({
 });
 
 export type AuthResponse = z.infer<typeof authResponseSchema>;
+
+// Book types
+export interface Book {
+  id: string;
+  title: string;
+  author: string;
+  year: number;
+  cover: string | null;
+}

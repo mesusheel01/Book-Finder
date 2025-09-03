@@ -1,7 +1,8 @@
-import type { 
-  RegisterInput, 
-  LoginInput, 
-  AuthResponse
+import type {
+  RegisterInput,
+  LoginInput,
+  AuthResponse,
+  Book
 } from '../types/auth';
 import { authResponseSchema } from '../types/auth';
 
@@ -51,5 +52,14 @@ export const authApi = {
     });
 
     return handleResponse<AuthResponse>(response, authResponseSchema);
+  },
+};
+
+export const booksApi = {
+  // Get random books for landing page
+  async getRandomBooks(): Promise<Book[]> {
+    const response = await fetch(`${API_BASE_URL}/books/show`);
+    const data = await handleResponse<{ books: Book[] }>(response);
+    return data.books;
   },
 };
