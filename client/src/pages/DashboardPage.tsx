@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
+import {motion} from 'motion/react'
 
 interface User {
   id: string;
@@ -203,7 +204,20 @@ const DashboardPage: React.FC = () => {
   };
 
   const BookCard: React.FC<{ book: Book ; showFavoriteButton?: boolean }> = ({ book, showFavoriteButton = true }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+    <motion.div 
+    initial={{
+      y:-10,
+      opacity: 0
+    }}
+    animate ={{
+      y:0,
+      opacity:1
+    }}
+    transition={{
+      duration:.3,
+      ease:"easeInOut"
+    }}
+    className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
       <div className="flex">
         {book.imageUrl && (
           <img
@@ -229,7 +243,7 @@ const DashboardPage: React.FC = () => {
                 }
               }}
 
-              className={`mt-3 px-3 py-1 text-sm rounded-md ${
+              className={`mt-3 px-3 py-1 text-sm rounded-md transition-colors duration-300${
                 isFavorite(book.id || '')
                   ? 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-800/50'
                   : 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800/50'
@@ -240,7 +254,7 @@ const DashboardPage: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   if (!user) {
