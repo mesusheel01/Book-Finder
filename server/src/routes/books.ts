@@ -164,11 +164,11 @@ bookRouter.get('/favorites', authenticateUser, async (req, res) => {
 });
 
 // Add book to favorites - requires authentication
-bookRouter.post('/favorites', authenticateUser, validateBody(addFavoriteSchema), async (req, res) => {
+bookRouter.post('/favorites', authenticateUser, async (req, res) => {
   try {
     const userId = req.user._id;
     const bookData: AddFavoriteInput = req.body;
-
+    console.log(req.body)
     // Check if book is already favorited
     const existingBook = await Book.findOne({ userId, bookId: bookData.bookId });
     

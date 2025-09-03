@@ -67,14 +67,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
         {mode === 'login' ? 'Login' : 'Register'}
       </h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Username
           </label>
           <input
@@ -83,19 +83,19 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit }) => {
             name="username"
             value={formData.username || ''}
             onChange={handleInputChange}
-            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.username ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+              errors.username ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder="Enter your username"
           />
           {errors.username && (
-            <p className="mt-1 text-sm text-red-600">{errors.username}</p>
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.username}</p>
           )}
         </div>
 
         {mode === 'register' && (
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Email
             </label>
             <input
@@ -104,19 +104,19 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit }) => {
               name="email"
               value={formData.email || ''}
               onChange={handleInputChange}
-              className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
+              className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder="Enter your email"
             />
             {errors.email && (
-              <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
             )}
           </div>
         )}
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Password
           </label>
           <input
@@ -125,13 +125,13 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit }) => {
             name="password"
             value={formData.password || ''}
             onChange={handleInputChange}
-            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors.password ? 'border-red-500' : 'border-gray-300'
+            className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+              errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
             }`}
             placeholder="Enter your password"
           />
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>
           )}
         </div>
 

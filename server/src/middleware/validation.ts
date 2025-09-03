@@ -30,6 +30,7 @@ export const validateRequest = (schema: z.ZodSchema) => {
 export const validateBody = (schema: z.ZodSchema) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body)
       await schema.parseAsync(req.body);
       return next();
     } catch (error) {
